@@ -2,6 +2,7 @@ import { Injectable, ConflictException } from '@nestjs/common';
 import { PatientRepository } from '../../domain/repositories/patient.repository';
 import { CreatePatientDto } from '../dtos/create-patient.dto';
 import { Patient, PatientStatus } from '../../domain/entities/patient.entity';
+import { ERRORS } from '../../../../shared/domain/constants/errors';
 
 @Injectable()
 export class CreatePatientUseCase {
@@ -10,7 +11,9 @@ export class CreatePatientUseCase {
   async execute(dto: CreatePatientDto): Promise<Patient> {
     const existingPatient = await this.patientRepository.findByRa(dto.ra);
     if (existingPatient) {
-      throw new ConflictException(`Patient with RA ${dto.ra} already exists`);
+      throw new ConflictException(
+        ERRORS.PATIENT.ALREADY_EXISTS.replace('{ra}', dto.ra.toString()),
+      );
     }
 
     const patient = Patient.create({
