@@ -4,6 +4,8 @@ import { PIAOrmEntity } from './infrastructure/persistence/entities/pia.orm-enti
 import { TypeOrmPIARepository } from './infrastructure/persistence/repositories/typeorm-pia.repository';
 import { PIAController } from './infrastructure/controllers/pia.controller';
 
+import { PIAResolver } from './infrastructure/resolvers/pia.resolver';
+
 @Module({
   imports: [TypeOrmModule.forFeature([PIAOrmEntity])],
   controllers: [PIAController],
@@ -12,6 +14,7 @@ import { PIAController } from './infrastructure/controllers/pia.controller';
       provide: 'PIARepository',
       useClass: TypeOrmPIARepository,
     },
+    PIAResolver,
   ],
   exports: ['PIARepository'],
 })

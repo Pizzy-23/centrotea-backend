@@ -5,6 +5,8 @@ import { TypeOrmProfessionalRepository } from './infrastructure/persistence/repo
 
 import { ProfessionalsController } from './infrastructure/controllers/professionals.controller';
 
+import { ProfessionalsResolver } from './infrastructure/resolvers/professionals.resolver';
+
 @Module({
   imports: [TypeOrmModule.forFeature([ProfessionalOrmEntity])],
   controllers: [ProfessionalsController],
@@ -13,6 +15,7 @@ import { ProfessionalsController } from './infrastructure/controllers/profession
       provide: 'ProfessionalRepository',
       useClass: TypeOrmProfessionalRepository,
     },
+    ProfessionalsResolver,
   ],
   exports: ['ProfessionalRepository'],
 })

@@ -5,6 +5,8 @@ import { TypeOrmWorkshopRepository } from './infrastructure/persistence/reposito
 
 import { WorkshopsController } from './infrastructure/controllers/workshops.controller';
 
+import { WorkshopsResolver } from './infrastructure/resolvers/workshops.resolver';
+
 @Module({
   imports: [TypeOrmModule.forFeature([WorkshopOrmEntity])],
   controllers: [WorkshopsController],
@@ -13,6 +15,7 @@ import { WorkshopsController } from './infrastructure/controllers/workshops.cont
       provide: 'WorkshopRepository',
       useClass: TypeOrmWorkshopRepository,
     },
+    WorkshopsResolver,
   ],
   exports: ['WorkshopRepository'],
 })

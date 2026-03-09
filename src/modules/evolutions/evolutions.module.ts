@@ -4,6 +4,8 @@ import { EvolutionReportOrmEntity } from './infrastructure/persistence/entities/
 import { TypeOrmEvolutionReportRepository } from './infrastructure/persistence/repositories/typeorm-evolution-report.repository';
 import { EvolutionsController } from './infrastructure/controllers/evolutions.controller';
 
+import { EvolutionsResolver } from './infrastructure/resolvers/evolutions.resolver';
+
 @Module({
   imports: [TypeOrmModule.forFeature([EvolutionReportOrmEntity])],
   controllers: [EvolutionsController],
@@ -12,6 +14,7 @@ import { EvolutionsController } from './infrastructure/controllers/evolutions.co
       provide: 'EvolutionReportRepository',
       useClass: TypeOrmEvolutionReportRepository,
     },
+    EvolutionsResolver,
   ],
   exports: ['EvolutionReportRepository'],
 })

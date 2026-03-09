@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserOrmEntity } from './infrastructure/persistence/entities/user.orm-entity';
 import { TypeOrmUserRepository } from './infrastructure/persistence/repositories/typeorm-user.repository';
 
+import { UsersResolver } from './infrastructure/resolvers/users.resolver';
+
 @Module({
   imports: [TypeOrmModule.forFeature([UserOrmEntity])],
   providers: [
@@ -10,6 +12,7 @@ import { TypeOrmUserRepository } from './infrastructure/persistence/repositories
       provide: 'UserRepository',
       useClass: TypeOrmUserRepository,
     },
+    UsersResolver,
   ],
   exports: ['UserRepository'],
 })

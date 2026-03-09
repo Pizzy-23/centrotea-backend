@@ -11,10 +11,20 @@ import { WorkshopsModule } from './modules/workshops/workshops.module';
 import { EvolutionsModule } from './modules/evolutions/evolutions.module';
 import { PIAModule } from './modules/pia/pia.module';
 
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      sortSchema: true,
+      playground: true, // Magia para testarmos nossas queries na interface do Apollo!
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

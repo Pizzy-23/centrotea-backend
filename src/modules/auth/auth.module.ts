@@ -7,6 +7,8 @@ import { AuthController } from './infrastructure/controllers/auth.controller';
 import { JwtStrategy } from './infrastructure/strategies/jwt.strategy';
 import { UsersModule } from '../users/users.module';
 
+import { AuthResolver } from './infrastructure/resolvers/auth.resolver';
+
 @Module({
   imports: [
     UsersModule,
@@ -15,13 +17,14 @@ import { UsersModule } from '../users/users.module';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>('JWT_SECRET') || 'ritual-sagrado-secreto',
+        secret:
+          configService.get<string>('JWT_SECRET') || 'ritual-sagrado-secreto',
         signOptions: { expiresIn: '1d' },
       }),
     }),
   ],
   controllers: [AuthController],
-  providers: [LoginUseCase, JwtStrategy],
+  providers: [LoginUseCase, JwtStrategy, AuthResolver],
   exports: [LoginUseCase],
 })
 export class AuthModule {}
